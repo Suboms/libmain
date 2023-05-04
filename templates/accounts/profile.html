@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <link rel="stylesheet" href="/static/css/quartz.css">
+  <link rel="stylesheet" href="/static/css/bootstrap-icons.css">
+  <link rel="shortcut icon" href="/static/signup/img/favicon.ico" type="image/x-icon">
+  <style>
+    .container {
+      margin-top: 50px;
+      max-width: -moz-max-content;
+      max-width: max-content;
+    }
+
+    body {
+      background: url("/static/signup/img/04.jpg") no-repeat center center fixed;
+      background-size: cover;
+      background-color: rgba(0, 0, 0, 0.555);
+      background-blend-mode: darken;
+    }
+
+    .card {
+      background-color: rgba(0, 0, 0, 0.9);
+      padding: 30px;
+      border-radius: 30px;
+    }
+
+    .card-body {
+      margin-bottom: -50px !important;
+    }
+
+    .form-control {
+      background-color: transparent;
+      color: #fff;
+      border: none;
+      outline: none;
+      border-bottom: 1px solid #fff;
+      border-radius: 0px;
+      box-shadow: none;
+    }
+
+    .form-control:focus {
+      box-shadow: none;
+      border-color: #007bff;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #0069d9;
+    }
+
+    .btn-primary:focus {
+      box-shadow: none;
+    }
+
+    .message {
+      color: rgb(231, 231, 231);
+      font-size: 1.5em;
+      margin: 0;
+      padding: 5px;
+    }
+
+    #library_user_0 {
+      display: none;
+    }
+
+    ul {
+      list-style-type: none;
+    }
+
+    .errorlist {
+      padding: 0 0 0 10px;
+      margin: auto;
+      font-size: 20px;
+      font-style: italic;
+      padding: 0 0 10px 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="text-center">Profile</h3>
+          </div>
+          <div class="card-body">
+            <form method="post" action="/profile/{{request.user.id}}/" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="mb-3">
+                <label for="{{ form.username.id_for_label }}" class="form-label">{{ form.username.label }}</label>
+                {{form.username}}
+              </div>
+
+              <div class="row mb-3">
+                <div class="col">
+                  <label for="{{ form.first_name.id_for_label }}" class="form-label">{{ form.first_name.label }}</label>
+                  {{form.first_name}}
+                </div>
+                <div class="col">
+                  <label for="{{ form.last_name.id_for_label }}" class="form-label">{{ form.last_name.label }}</label>
+                  {{form.last_name}}
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="{{ form.email.id_for_label }}" class="form-label">{{ form.email.label }}</label>
+                {{form.email}}
+              </div>
+
+              {% if request.user.designation == "Staff" %}
+              <div class="mb-3 staff">
+                <label for="{{ form.staff_id.id_for_label }}" class="form-label">{{ form.staff_id.label }}</label>
+                {{form.staff_id}}
+              </div>
+              {% elif request.user.designation == "Student" %}
+              <div class="mb-3 student">
+                <label for="{{ form.matric_no.id_for_label }}" class="form-label">{{ form.matric_no.label }}</label>
+                {{form.matric_no}}
+              </div>
+
+              <div class="row mb-3 lib_user">
+                <label for="{{ form.lib_user.id_for_label }}" class="form-label">{{ form.lib_user.label }}</label>
+                {% for choice in form.lib_user %}
+                <div class="col" id="library_user_{{ forloop.counter0 }}">
+                  <div class="form-check form-check-inline">
+                    {{choice.tag}}
+                    <label class="form-check-label"
+                      for="lib_user_{{ forloop.counter0 }}">{{choice.choice_label}}</label>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+              <div class="mb-3 card_id" style="display: none;">
+                <label for="{{ form.library_id.id_for_label }}" class="form-label">{{ form.library_id.label }}</label>
+                {{form.library_id}}
+              </div>
+              {% else %}
+                <div style="display: none;"></div>
+              {% endif %}
+
+              <div class="mb-3 input group input-group-sm form-floating">
+                {{ form.avatar }}
+              </div>
+
+              <div class="d-grid mb-4">
+                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+              </div>
+
+              <div class="mb-3 text-danger">
+                {% for field, error in form.errors.items %}
+                {% if forloop.first %}
+                {{error}}
+                {% endif %}
+                {% endfor %}
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/static/js/index.js"></script>
+  <script src="/static/js/profile.js" async></script>
+</body>
+
+</html>

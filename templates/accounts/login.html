@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="/static/css/quartz.css">
+  <link rel="stylesheet" href="/static/css/bootstrap-icons.css">
+  <link rel="shortcut icon" href="/static/signup/img/favicon.ico" type="image/x-icon">
+  <style type="text/css">
+    .container {
+      margin-top: 50px;
+    }
+
+    body {
+      background-image: url("/static/signup/img/04.jpg");
+      background-color: rgba(0, 0, 0, 0.726);
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+      background-blend-mode: darken;
+    }
+
+    .card {
+      background-color: rgba(0, 0, 0, 0.404);
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.726);
+      padding: 10px;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .card-header {
+      background-color: #ffffff18;
+      color: white;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .card-body {
+      padding: 30px;
+    }
+
+    .form-control:focus {
+      box-shadow: none;
+      border-color: #007bff;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #0069d9;
+    }
+
+    .btn-primary:focus {
+      box-shadow: none;
+    }
+
+    .message {
+      color: rgb(231, 231, 231);
+      font-size: 1.5em;
+      margin: 0;
+      padding: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md offset-md-4">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="text-center">Login</h3>
+          </div>
+          <div class="card-body">
+            <form method="post" autocomplete="off" action="/signin/">
+              {% csrf_token %}
+              <div class="mb-3">
+                <label for="{{ form.username.id_for_label }}" class="form-label">{{ form.username.label }}</label>
+                <div class="input-group">
+                  {{form.username}}
+                </div>
+              </div>
+              
+              <div class="mb-3">
+                <label for="{{ form.password.id_for_label }}" class="form-label">{{ form.password.label }}</label>
+                <div class="input-group">
+                  {{form.password}}
+                  <span class="input-group-text" onclick="togglePasswordVisibility()"><i id="eyeIcon" class="bi bi-eye"></i></span>
+                </div>
+              </div>
+              <input type="hidden" name="next" value="{{ next }}">
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-block">Login</button>
+              </div>
+              <div class="mb-3 text-danger">
+                {% for message in messages %}
+                <p class="message">{{message}}</p>
+                {% endfor %}
+              </div>
+              <script src="/static/js/auth.js" async></script>
+            </form>
+            <div class="signup-link">
+              <p>Don't have an account? <a href="/signup/">Click here to sign up</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/static/js/index.js"></script>
+</body>
+
+</html>

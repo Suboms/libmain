@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Borrow Book</title>
+  <link rel="stylesheet" href="/static/css/superhero.css">
+  <link rel="stylesheet" href="/static/css/select2.min.css">
+  <link rel="stylesheet" href="/static/css/select2-bootstrap-5-theme.min.css">
+
+</head>
+
+<body>
+  <div class="container mt-5">
+    <form action="/borrow/" method="post" class="form-inline">
+      <h2>Borrow a Book</h2>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary mt-3">Borrow</button>
+    </form>
+    {% for message in messages %}
+    <div class="alert alert-warning mt-3">
+      <strong>{{message}}</strong>
+    </div>
+    {% endfor %}
+  </div>
+  <script src="/static/js/index.js"></script>
+  <script src="/static/js/jquery.js"></script>
+  <script src="/static/js/select2.min.js"></script>
+  <script>
+    var selectField = document.querySelector('#multiple-select-field');
+
+    var options = {
+      theme: 'bootstrap-5',
+      width: selectField.dataset.width || (selectField.classList.contains('w-100') ? '100%' : 'style'),
+      placeholder: selectField.dataset.placeholder,
+      closeOnSelect: false,
+      allowClear: true,
+    };
+
+    $(selectField).select2(options);
+
+  </script>
+</body>
+
+</html>

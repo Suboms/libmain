@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signup Form</title>
+  <link rel="stylesheet" href="/static/css/quartz.css">
+  <link rel="stylesheet" href="/static/css/signup.css">
+  <link rel="stylesheet" href="/static/css/bootstrap-icons.css">
+  <link rel="shortcut icon" href="/static/signup/img/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+  <script src="/static/js/index.js"></script>
+  <script src="/static/js/auth1.js" async></script>
+  <script src="/static/js/auth.js" async></script>
+  {% if request.user.is_authenticated and request.user.is_superuser %}
+  <div class="container">
+    <div class="row">
+      <div class="col-sm">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="text-center">Signup Form</h3>
+          </div>
+          <div class="card-body">
+            <form method="post" action="/signup/" id="signUpForm">
+              {% csrf_token %}
+              <div class="mb-3">
+                <label for="{{ form.username.id_for_label }}" class="form-label">{{ form.username.label }}</label>
+                {{form.username}}
+                <div id="uname-error" style="display: none;" class="invalid-feedback">Field cannot contain special
+                  characters or numbers</div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col">
+                  <label for="{{ form.first_name.id_for_label }}" class="form-label">{{ form.first_name.label }}</label>
+                  {{form.first_name}}
+                  <div id="fname-error" style="display: none;" class="invalid-feedback">Field cannot contain special
+                    characters or numbers</div>
+                </div>
+                <div class="col">
+                  <label for="{{ form.last_name.id_for_label }}" class="form-label">{{ form.last_name.label }}</label>
+                  {{form.last_name}}
+                  <div id="lname-error" style="display: none;" class="invalid-feedback">Field cannot contain special
+                    characters or numbers</div>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="{{ form.email.id_for_label }}" class="form-label">{{ form.email.label }}</label>
+                {{form.email}}
+              </div>
+
+              <div class="row mb-3 designation">
+                <label for="{{ form.designation.id_for_label }}" class="form-label">{{ form.designation.label }}</label>
+                {% for choice in form.designation %}
+                <div class="col">
+                  <div class="form-check form-check-inline">
+                    {{choice.tag}}
+                    <label class="form-check-label"
+                      for="designation_{{ forloop.counter0 }}">{{choice.choice_label}}</label>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+
+              <div class="mb-3 staff" style="display: none;">
+                <label for="{{ form.staff_id.id_for_label }}" class="form-label">{{ form.staff_id.label }}</label>
+                {{form.staff_id}}
+              </div>
+
+              <div class="mb-3 student" style="display: none;">
+                <label for="{{ form.matric_no.id_for_label }}" class="form-label">{{ form.matric_no.label }}</label>
+                {{form.matric_no}}
+              </div>
+
+              <div class="row mb-3 lib_user" style="display: none;">
+                <label for="{{ form.lib_user.id_for_label }}" class="form-label">{{ form.lib_user.label }}</label>
+                {% for choice in form.lib_user %}
+                <div class="col" id="lib_user_{{ forloop.counter0 }}">
+                  <div class="form-check form-check-inline">
+                    {{choice.tag}}
+                    <label class="form-check-label"
+                      for="library_user_{{ forloop.counter0 }}">{{choice.choice_label}}</label>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+
+              <div class="mb-3 card_id" style="display: none;">
+                <label for="{{ form.library_id.id_for_label }}" class="form-label">{{ form.library_id.label }}</label>
+                {{form.library_id}}
+              </div>
+
+              <div class="d-grid mb-4">
+                <button type="submit" class="btn btn-primary btn-block">SignUp</button>
+              </div>
+
+              <div class="mb-3 text-danger">
+                {% for message in messages %}
+                <p class="message">{{message}}</p>
+                {% endfor %}
+              </div>
+
+              <div class="mb-3 text-danger">
+                {% for field, error in form.errors.items %}
+                {% if forloop.first %}
+                {{field}}
+                {{error}}
+                {% endif %}
+                {% endfor %}
+              </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+
+  </script>
+  {% else %}
+  <style>
+    .designation_0 {
+      display: none;
+    }
+  </style>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="text-center">Signup Form</h3>
+          </div>
+          <div class="card-body">
+            <form method="post" action="/signup/" id="signUpForm">
+              {% csrf_token %}
+              <div class="mb-3">
+                <label for="{{ form.username.id_for_label }}" class="form-label">{{ form.username.label }}</label>
+                {{form.username}}
+                <div id="uname-error" style="display: none;" class="invalid-feedback">Field cannot contain special
+                  characters or numbers</div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col">
+                  <label for="{{ form.first_name.id_for_label }}" class="form-label">{{ form.first_name.label }}</label>
+                  {{form.first_name}}
+                  <div id="fname-error" style="display: none;" class="invalid-feedback">Field cannot contain special
+                    characters or numbers</div>
+                </div>
+                <div class="col">
+                  <label for="{{ form.last_name.id_for_label }}" class="form-label">{{ form.last_name.label }}</label>
+                  {{form.last_name}}
+                  <div id="lname-error" style="display: none;" class="invalid-feedback">Field cannot contain special
+                    characters or numbers</div>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="{{ form.email.id_for_label }}" class="form-label">{{ form.email.label }}</label>
+                {{form.email}}
+              </div>
+
+              <div class="row mb-3">
+                <label for="{{ form.designation.id_for_label }}" class="form-label">{{ form.designation.label }}</label>
+                {% for choice in form.designation %}
+                <div class="col designation_{{ forloop.counter0 }}">
+                  <div class="form-check form-check-inline">
+                    {{choice.tag}}
+                    <label class="form-check-label"
+                      for="designation_{{ forloop.counter0 }}">{{choice.choice_label}}</label>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+
+              <div class="mb-3 staff" style="display: none;">
+                <label for="{{ form.staff_id.id_for_label }}" class="form-label">{{ form.staff_id.label }}</label>
+                {{form.staff_id}}
+              </div>
+
+              <div class="mb-3 student" style="display: none;">
+                <label for="{{ form.matric_no.id_for_label }}" class="form-label">{{ form.matric_no.label }}</label>
+                {{form.matric_no}}
+              </div>
+
+              <div class="row mb-3 lib_user" style="display: none;">
+                <label for="{{ form.lib_user.id_for_label }}" class="form-label">{{ form.lib_user.label }}</label>
+                {% for choice in form.lib_user %}
+                <div class="col" id="lib_user_{{ forloop.counter0 }}">
+                  <div class="form-check form-check-inline">
+                    {{choice.tag}}
+                    <label class="form-check-label"
+                      for="library_user_{{ forloop.counter0 }}">{{choice.choice_label}}</label>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+
+              <div class="mb-3 card_id" style="display: none;">
+                <label for="{{ form.library_id.id_for_label }}" class="form-label">{{ form.library_id.label }}</label>
+                {{form.library_id}}
+              </div>
+
+              <div class="row mb-3 password">
+                <div class="col">
+                  <div>
+                    <label for="{{ form.password.id_for_label }}" class="form-label">{{ form.password.label }}</label>
+                    <div class="input-group">
+                      {{ form.password }}
+                      <button type="button" class="btn btn-outline-secondary eye-1" onclick="togglePasswordVisibility()"
+                        id="passwordToggle">
+                        <i id="eyeIcon" class="bi bi-eye"></i>
+                      </button>
+                      <div class="invalid-feedback">Password must be at least 8 characters long and include at least one
+                        uppercase letter, one lowercase letter, one number and a special case character.</div>
+                    </div>
+
+                  </div>
+                </div>
+                <input type="hidden" name="next" value="{{ next }}">
+                <div class="col">
+                  <div>
+                    <label for="{{ form.password2.id_for_label }}" class="form-label">{{ form.password2.label }}</label>
+                    <div class="input-group">
+                      {{form.password2}}
+                      <button type="button" class="btn btn-outline-secondary eye-2"
+                        onclick="togglePasswordVisibility1()">
+                        <i id="eyeIcon1" class="bi bi-eye"></i>
+                      </button>
+                      <div class="invalid-feedback" id="error-text"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-grid mb-4">
+                <button type="submit" class="btn btn-primary btn-block">SignUp</button>
+              </div>
+
+              <div class="mb-3 text-danger">
+                {% for message in messages %}
+                <p class="message">{{message}}</p>
+                {% endfor %}
+              </div>
+
+              <div class="mb-3 text-danger">
+                {% for field, error in form.errors.items %}
+                {% if forloop.first %}
+                {{field}}
+                {{error}}
+                {% endif %}
+                {% endfor %}
+              </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+
+</body>
+
+</html>

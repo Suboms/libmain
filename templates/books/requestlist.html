@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Request Status</title>
+  </head>
+  <body>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Member Name</th>
+          <th>Book Title</th>
+          <th>Request Date</th>
+          <th>Approval Date</th>
+          <th>Request Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for username, requests in user_requests.items %} 
+          {% with num_requests_approved=requests.approved_requests|length num_requests_declined=requests.declined_requests|length %}
+            {% for request in requests.approved_requests %}
+              <tr>
+                {% if forloop.first %}
+                  <td rowspan="{{ num_requests_approved|add:num_requests_declined }}">
+                    {{ username }}
+                  </td>
+                {% endif %}
+                <td><a href="{{request.book.book.url}}">{{ request.book }}</a></td>
+                <td>{{ request.request_date }}</td>
+                <td>{{ request.approval_date }}</td>
+                {% if forloop.first %}
+                  <td rowspan="{{ num_requests_approved }}">
+                    {{ request.status }}
+                  </td>
+                {% endif %}
+              </tr>
+            {% endfor %} 
+            {% for request in requests.declined_requests %}
+              <tr>
+                {% if forloop.first and requests.approved_requests|length < 1 %}
+                  <td rowspan="{{ num_requests_approved|add:num_requests_declined }}">
+                    {{ username }}
+                  </td>
+                {% endif %}
+                <td><a href="{{request.book.book.url}}">{{ request.book }}</a></td>
+                <td>{{ request.request_date }}</td>
+                <td>{{ request.approval_date }}</td>
+                {% if forloop.first %}
+                  <td rowspan="{{ num_requests_declined }}">
+                    {{ request.status }}
+                  </td>
+                {% endif %}
+              </tr>
+            {% endfor %} 
+          {% endwith %} 
+        {% endfor %}
+      </tbody>
+    </table>    
+    <style>
+      table {
+        border-collapse: collapse;
+        width: 75%;
+      }
+      th,
+      td {
+        padding: 8px;
+        text-align: center;
+      }
+      th {
+        background-color: rgb(199, 180, 180);
+      }
+    </style>
+  </body>
+</html>

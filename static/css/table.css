@@ -1,0 +1,13 @@
+.name {
+  text-transform: capitalize;
+}
+
+#staffList_length {
+  display: none !important;
+}
+#studentList_length {
+  display: none !important;
+}
+#booksList_length {
+  display: none !important;
+}

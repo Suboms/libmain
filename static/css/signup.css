@@ -1,0 +1,144 @@
+.container {
+    margin-top: 50px;
+    max-width: 750px;
+}
+
+body {
+    background: url("/static/signup/img/04.jpg") no-repeat center center fixed;
+    background-size: cover;
+    background-color: rgba(0, 0, 0, 0.705);
+    background-blend-mode: darken;
+}
+
+.card {
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 30px;
+    border-radius: 30px;
+}
+
+.card-body {
+    margin-bottom: -50px !important;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #007bff;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0069d9;
+}
+
+.btn-primary:focus {
+    box-shadow: none;
+}
+
+.message {
+    color: rgb(231, 231, 231);
+    font-size: 1.5em;
+    margin: 0;
+    padding: 5px;
+}
+
+#lib_user_0 {
+    display: none;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.errorlist {
+    padding: 0 0 0 10px;
+    margin: auto;
+    font-size: 20px;
+    font-style: italic;
+    padding: 0 0 10px 5px;
+}
+
+input[type=text] {
+    border: 0px;
+    outline: none;
+    border-radius: 0px;
+    border-bottom: 1px solid #fff;
+}
+
+input[type=email] {
+    border: 0px;
+    outline: none;
+    border-radius: 0px;
+    border-bottom: 1px solid #fff;
+}
+
+input[type=password] {
+    border: 0px;
+    outline: none;
+    border-radius: 0px;
+    border-bottom: 1px solid #fff;
+}
+
+.form-control.is-invalid {
+    background-image: none !important;
+}
+
+.form-control.is-valid {
+    background-image: none !important;
+}
+
+.form-control.is-invalid {
+    box-shadow: none !important;
+    border-color: #007bff !important;
+}
+
+.form-control.is-valid {
+    box-shadow: none !important;
+    border-color: #007bff !important;
+}
+
+.invalid-feedback {
+    color: #e5e5e5;
+}
+
+.eye-1 {
+    --bs-btn-hover-color: #fff !important;
+    --bs-btn-hover-bg: #ffffff00 !important;
+    --bs-btn-hover-border-color: rgba(255, 255, 255, 0);
+    --bs-btn-border-color: rgba(255, 255, 255, 0) !important;
+    border-bottom: 1px solid #fff;
+    border-top: none;
+    border-radius: 0px;
+}
+
+.eye-1:hover {
+    border-bottom: 1px solid #fff;
+    border-radius: 0px;
+}
+
+.eye-2 {
+    --bs-btn-hover-color: #fff !important;
+    --bs-btn-hover-bg: #ffffff00 !important;
+    --bs-btn-hover-border-color: rgba(255, 255, 255, 0);
+    --bs-btn-border-color: rgba(255, 255, 255, 0) !important;
+    border-bottom: 1px solid #fff;
+    border-top: none;
+    border-radius: 0px;
+}
+
+.eye-2:hover {
+    border-bottom: 1px solid #fff;
+    border-radius: 0px;
+}
+
+
+#eyeIcon {
+    color: #fff;
+}
+
+#eyeIcon1 {
+    color: #fff;
+}

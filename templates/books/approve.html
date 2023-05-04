@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Approve Request</title>
+  </head>
+  <body>
+    <h1>Update Pending Requests for {{ member.username }}</h1>
+
+    <form method="post">
+      {% csrf_token %} {{ formset.management_form }}
+      <table>
+        <thead>
+          <tr>
+            <th>Book</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for form in formset %}
+          <tr>
+            {{form.id}}
+            <td>
+              <select name="{{form.prefix}}-book" id="id_{{form.prefix}}-book">
+                {% for choice in form.book %}
+                  {{choice.tag}}
+                {%endfor%}
+              </select>
+            </td>
+            <td>
+              {% for choice in form.status %}
+                <label for="status_{{forloop.counter0}}">{{choice.choice_label}}</label>
+                {{choice.tag}}
+              {%endfor%}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <input type="submit" value="Update" />
+    </form>
+    <style>
+      select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background: transparent;
+        border: none;
+        font-size: 15px;
+      }
+      select {
+        pointer-events: none;
+      }
+      td input[type=hidden]{
+        display: none;
+      }
+    </style>
+  </body>
+</html>
+
+

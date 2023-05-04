@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Books</title>
+  <link rel="stylesheet" href="/static/css/quartz.css">
+  <link rel="stylesheet" href="/static/css/addbook.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="javascript:;">Library Management System</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Books</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Authors</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact Us</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">{{request.user.username}}
+              <img src="{{request.user.avatar.url}}" class="rounded-circle border border-3 border-white" alt="Avatar"
+                height="45" width="45">
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end mt-2" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="/profile/{{request.user.id}}/">Profile</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="/signout/">Sign Out</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="text-center">Upload Book</h3>
+          </div>
+          <div class="card-body">
+            <form action="/books/create/" method="post" onsubmit="removeISBNMask()" id="addbook" class="needs-validation"
+              enctype="multipart/form-data" autocomplete="off">
+              {% csrf_token %}
+              {% if request.user.is_authenticated %}
+              <div class="row">
+                <div class="col">
+                  <div class="mb-3 form-floating ">
+                    {{ form.title }}
+                    <div id="title-error" style="display: none;" class="invalid-feedback">Field cannot contain special characters</div>
+                    <label for="{{ form.title.id_for_label }}" class="form-label">{{ form.title.label }}</label>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="mb-3 form-floating col">
+                    {{ form.author_name }}
+                    <label for="{{ form.author_name.id_for_label }}"
+                      class="form-label">{{form.author_name.label}}</label>
+                    <datalist id="author">
+                      {% for author in authors %}
+                      <option value="{{ author.name }}">{{ author.name }}</option>
+                      {% endfor %}
+                    </datalist>
+                    <div id="author-error" style="display: none;" class="invalid-feedback">Field cannot contain special characters</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-1 coauthor-parent">
+                <div class="coauthor form-floating">
+                  {{ form.coauthors_name }}
+                  <label for="{{ form.coauthors_name.id_for_label }}" class="form-label">{{ form.coauthors_name.label }}
+                    <span>(Optional)</span>
+                  </label>
+                  <datalist id="co-author">
+                    {% for coauthor in coauthors %}
+                    <option value="{{ coauthor.name }}">{{ coauthor.name }}</option>
+                    {% endfor %}
+                  </datalist>
+                  <div id="coauthor-error" style="display: none;" class="invalid-feedback">Field cannot contain special characters</div>
+                </div>
+                <div class="buttons">
+                  <button type="button" class="btn btn-secondary mt-2 add-coauthor">
+                    +
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col">
+                  <div class="mb-3 form-floating">
+                    {{ form.publisher_name }}
+                    <label for="{{ form.publisher_name.id_for_label }}"
+                      class="form-label">{{form.publisher_name.label}}</label>
+                    <datalist id="publisher">
+                      {% for publisher in publishers %}
+                      <option value="{{ publisher.name }}">{{ publisher.name }}</option>
+                      {% endfor %}
+                    </datalist>
+                    <div id="publisher-error" style="display: none;" class="invalid-feedback">Field cannot contain special characters</div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="mb-3 form-floating">
+                    {{ form.isbn }}
+                    <label for="{{ form.isbn.id_for_label }}" class="form-label">{{ form.isbn.label }}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="mb-1 genre-parent">
+                <div class="genre form-floating">
+                  {{ form.genres_name }}
+                  <label for="{{ form.genres_name.id_for_label }}" class="form-label">{{form.genres_name.label}}</label>
+                  <datalist id="genres">
+                    {% for genre in genres %}
+                    <option value="{{ genre.name }}">{{ genre.name }}</option>
+                    {% endfor %}
+                  </datalist>
+                  <div id="genre-error" style="display: none;" class="invalid-feedback">Field cannot contain special characters</div>
+                </div>
+                <div class="buttons">
+                  <button type="button" class="btn btn-secondary mt-2 add-genre">
+                    +
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col">
+                  <div class="mb-3 form-floating">
+                    {{ form.edition }}
+                    <div id="edition-error" style="display: none;" class="invalid-feedback">Field cannot contain special characters</div>
+                    <label for="{{ form.edition.id_for_label }}" class="form-label">{{ form.edition.label }}</label>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="mb-3 form-floating">
+                    {{ form.description }}
+                    <label for="{{ form.description.id_for_label }}"
+                      class="form-label">{{form.description.label}}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3 input group input-group-sm form-floating">
+                {{ form.book_file }}
+              </div>
+
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-block mb-3">Create</button>
+              </div>
+
+              <div class="mb-3 text-danger">
+                {% for field, error in form.errors.items %}
+                {% if forloop.first %}
+                {{error}}
+                {% endif %}
+                {% endfor %}
+              </div>
+              {% endif %}
+              <script src="/static/js/index.js" async></script>
+              <script src="/static/js/addbook.js" async></script>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
