@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from accounts.forms import *
 from django.contrib.auth import get_user_model
-from django.contrib.auth.hashers import check_password, make_password
+from django.contrib.auth.hashers import check_password
 from django.contrib import messages
 from django.contrib.auth import logout, login
-import bcrypt
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
 
 User = get_user_model()
 # Create your views here.
@@ -28,7 +29,8 @@ def signup(request):
                     user.first_name = user.first_name.lower()
                     user.last_name = user.last_name.lower()
                     user.email = user.email.lower()
-                    user.set_password(f"@{user.first_name.title()}{user.last_name.title()}123")
+                    user.set_password(
+                        f"@{user.first_name.title()}{user.last_name.title()}123")
                     if user.staff_id:
                         user.staff_id = user.staff_id.upper()
                     if user.library_id:
@@ -72,9 +74,7 @@ def signup(request):
                     return redirect(next_url)
         else:
             form = SignUp()
-        return render(request, 'accounts/register.html', {'form': form, "next": request.GET.get("next", "/")} )
-
-
+        return render(request, 'accounts/register.html', {'form': form, "next": request.GET.get("next", "/")})
 
 
 def signin(request):
@@ -114,8 +114,9 @@ def signout(request):
     return redirect(index)
 
 
+@login_required
 def profile(request, pk):
-    user = User.objects.get(id=pk)
+    user = get_object_or_404(User, id=pk)
     if request.method == "POST":
         form = Profile(request.POST, request.FILES, instance=user)
         if form.is_valid():
@@ -132,6 +133,7 @@ def profile(request, pk):
     else:
         form = Profile(instance=user)
     return render(request, "accounts/profile.html", {"form": form, "user": user})
+
 
 def student_list(request):
     students = User.objects.filter(designation="Student")
