@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   let table = new DataTable("#staffList", {
     pageLength: 50,
+    responsive: true,
     dom: "Bfrtip",
     buttons: [
       {
@@ -10,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
         buttons: [
           {
             extend: "csvHtml5",
-            title: "Student List",
+            title: "Staff List",
             className: "dropdown-item",
             exportOptions: {
               columns: [0, 1, 2, 3, 4, 5],
@@ -19,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
           },
           {
             extend: "excelHtml5",
-            title: "Student List",
+            title: "Staff List",
             className: "dropdown-item",
             exportOptions: {
               columns: [0, 1, 2, 3, 4, 5],
@@ -28,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
           },
           {
             extend: "print",
-            title: "Student List",
+            title: "Staff List",
             className: "dropdown-item",
             exportOptions: {
               columns: [0, 1, 2, 3, 4, 5],

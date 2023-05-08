@@ -23,6 +23,7 @@ class SignUp(forms.ModelForm):
             "library_id",
             "designation",
             "lib_user",
+            "slug",
         ]
         help_texts = {
             "username": None,
@@ -106,6 +107,7 @@ class SignUp(forms.ModelForm):
                     "id": "library_user",
                 }
             ),
+            "slug":forms.TextInput(attrs={"hidden":True}),
         }
 
     def clean_username(self):
@@ -134,7 +136,7 @@ class SignUp(forms.ModelForm):
     def clean_staff_id(self):
         staff_id = self.cleaned_data.get("staff_id")
         if staff_id is not None and not re.match(
-            "^(pfas|pfss|pfjs)\d{3}$", str(staff_id)
+            "^(pfas|pfss|pfjs)\d{3}$", str(staff_id), re.IGNORECASE
         ):
             raise ValidationError("Invalid Staff Id")
 
@@ -142,7 +144,9 @@ class SignUp(forms.ModelForm):
 
     def clean_library_id(self):
         library_id = self.cleaned_data.get("library_id")
-        if library_id is not None and not re.match("^(lib|LIB)\d{4}$", str(library_id)):
+        if library_id is not None and not re.match(
+            "^(lib)\d{4}$", str(library_id), re.IGNORECASE
+        ):
             raise ValidationError("Invalid Library Card Id.")
         return library_id
 
@@ -200,6 +204,7 @@ class AdminSignUp(forms.ModelForm):
             "library_id",
             "designation",
             "lib_user",
+            "slug",
         ]
         help_texts = {
             "username": None,
@@ -267,6 +272,7 @@ class AdminSignUp(forms.ModelForm):
                     "id": "library_user",
                 }
             ),
+            "slug":forms.TextInput(attrs={"hidden":True}),
         }
 
     def clean_username(self):
@@ -330,11 +336,11 @@ class AdminSignUp(forms.ModelForm):
 
 class Signin(forms.Form):
     username = forms.CharField(
-        max_length=9,
+        max_length=255,
         widget=forms.TextInput(
             attrs={
                 "class": "form-control",
-                "placeholder": "dubsy",
+                "placeholder": "Enter username or email",
                 "required": True,
                 "aria-describedby": "emailHelp",
             }
@@ -365,6 +371,7 @@ class Profile(forms.ModelForm):
             "library_id",
             "lib_user",
             "staff_id",
+            "slug",
         ]
         widgets = {
             "username": forms.TextInput(
@@ -420,6 +427,7 @@ class Profile(forms.ModelForm):
                 }
             ),
             "avatar": forms.FileInput(attrs={"class": "form-control form-control-sm"}),
+            "slug":forms.TextInput(attrs={"hidden":True}),
         }
 
     def clean_username(self):

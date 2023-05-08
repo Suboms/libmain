@@ -12,5 +12,4 @@ urlpatterns = [
     path("books/list/", views.books_list, name="books-list"),
     path("remove-book/<int:pk>/", views.delete_book, name="delete-book"),
     path("books/", views.manage_books, name="manage-books"),
-    
 ]

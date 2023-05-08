@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
           buttons: [
             {
               extend: "csvHtml5",
-              title: "Student List",
+              title: "Book List",
               className: "dropdown-item",
               exportOptions: {
                 columns: [0, 1, 2, 3, 4, 5, 6, 7],
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             {
               extend: "excelHtml5",
-              title: "Student List",
+              title: "Book List",
               className: "dropdown-item",
               exportOptions: {
                 columns: [0, 1, 2, 3, 4, 5, 6, 7],
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             {
               extend: "print",
-              title: "Student List",
+              title: "Book List",
               className: "dropdown-item",
               exportOptions: {
                 columns: [0, 1, 2, 3, 4, 5, 6, 7],

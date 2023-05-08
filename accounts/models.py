@@ -37,7 +37,7 @@ LIBUSER = (
 
 
 class User(AbstractUser):
-    username = models.CharField(max_length=50, default="", unique=True)
+    username = models.CharField(max_length=255, default="", unique=True)
     avatar = models.ImageField(
         blank=True,
         null=True,
@@ -77,6 +77,4 @@ class User(AbstractUser):
         null=True,
         verbose_name="Library Card Id",
     )
-
-    def __str__(self):
-        return self.first_name + " " + self.last_name
+    slug = models.SlugField(default="", null=False, blank=True, max_length=255)

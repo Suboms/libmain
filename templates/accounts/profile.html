@@ -6,83 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>User Profile</title>
   <link rel="stylesheet" href="/static/css/quartz.css">
+  <link rel="stylesheet" href="/static/css/profile.css">
   <link rel="stylesheet" href="/static/css/bootstrap-icons.css">
   <link rel="shortcut icon" href="/static/signup/img/favicon.ico" type="image/x-icon">
-  <style>
-    .container {
-      margin-top: 50px;
-      max-width: -moz-max-content;
-      max-width: max-content;
-    }
-
-    body {
-      background: url("/static/signup/img/04.jpg") no-repeat center center fixed;
-      background-size: cover;
-      background-color: rgba(0, 0, 0, 0.555);
-      background-blend-mode: darken;
-    }
-
-    .card {
-      background-color: rgba(0, 0, 0, 0.9);
-      padding: 30px;
-      border-radius: 30px;
-    }
-
-    .card-body {
-      margin-bottom: -50px !important;
-    }
-
-    .form-control {
-      background-color: transparent;
-      color: #fff;
-      border: none;
-      outline: none;
-      border-bottom: 1px solid #fff;
-      border-radius: 0px;
-      box-shadow: none;
-    }
-
-    .form-control:focus {
-      box-shadow: none;
-      border-color: #007bff;
-    }
-
-    .btn-primary {
-      background-color: #007bff;
-      border: none;
-    }
-
-    .btn-primary:hover {
-      background-color: #0069d9;
-    }
-
-    .btn-primary:focus {
-      box-shadow: none;
-    }
-
-    .message {
-      color: rgb(231, 231, 231);
-      font-size: 1.5em;
-      margin: 0;
-      padding: 5px;
-    }
-
-    #library_user_0 {
-      display: none;
-    }
-
-    ul {
-      list-style-type: none;
-    }
-
-    .errorlist {
-      padding: 0 0 0 10px;
-      margin: auto;
-      font-size: 20px;
-      font-style: italic;
-      padding: 0 0 10px 5px;
-    }
-  </style>
 </head>
 
 <body>
@@ -118,12 +44,12 @@
                 {{form.email}}
               </div>
 
-              {% if request.user.designation == "Staff" %}
+              {% if user.designation == "Staff" %}
               <div class="mb-3 staff">
                 <label for="{{ form.staff_id.id_for_label }}" class="form-label">{{ form.staff_id.label }}</label>
                 {{form.staff_id}}
               </div>
-              {% elif request.user.designation == "Student" %}
+              {% elif user.designation == "Student" %}
               <div class="mb-3 student">
                 <label for="{{ form.matric_no.id_for_label }}" class="form-label">{{ form.matric_no.label }}</label>
                 {{form.matric_no}}
@@ -146,13 +72,13 @@
                 {{form.library_id}}
               </div>
               {% else %}
-                <div style="display: none;"></div>
+              <div style="display: none;"></div>
               {% endif %}
 
               <div class="mb-3 input group input-group-sm form-floating">
                 {{ form.avatar }}
               </div>
-
+              {{form.slug}}
               <div class="d-grid mb-4">
                 <button type="submit" class="btn btn-primary btn-block">Submit</button>
               </div>
@@ -179,7 +105,7 @@
             <h3 class="text-center">Profile</h3>
           </div>
           <div class="card-body">
-            <form method="post" action="/profile/{{request.user.id}}/" enctype="multipart/form-data">
+            <form method="post" action="/settings/{{request.user.slug}}/" enctype="multipart/form-data">
               {% csrf_token %}
               <div class="mb-3">
                 <label for="{{ form.username.id_for_label }}" class="form-label">{{ form.username.label }}</label>
@@ -230,13 +156,13 @@
                 {{form.library_id}}
               </div>
               {% else %}
-                <div style="display: none;"></div>
+              <div style="display: none;"></div>
               {% endif %}
 
               <div class="mb-3 input group input-group-sm form-floating">
                 {{ form.avatar }}
               </div>
-
+              {{form.slug}}
               <div class="d-grid mb-4">
                 <button type="submit" class="btn btn-primary btn-block">Submit</button>
               </div>

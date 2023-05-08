@@ -79,8 +79,7 @@ def pending(request):
     if not request.user.is_superuser:
         return redirect(notfound)
     else:
-        users = PendingRequest.objects.filter(
-            member__isnull=False).distinct("member")
+        users = PendingRequest.objects.filter(member__isnull=False).distinct("member")
         return render(request, "books/request.html", {"users": users})
 
 
@@ -122,8 +121,7 @@ def addbook(request):
                     description=description,
                 )
                 for genre in genres_name:
-                    genre, created = Genre.objects.get_or_create(
-                        name=genre.lower())
+                    genre, created = Genre.objects.get_or_create(name=genre.lower())
                     book.genres.add(genre)
                 if co_authors:
                     for co_author in co_authors:
@@ -156,8 +154,7 @@ def approve(request, pk):
             PendingRequest, form=ApproveForm, extra=0
         )
         if request.method == "POST":
-            formset = PendingRequestFormSet(
-                request.POST, queryset=pending_requests)
+            formset = PendingRequestFormSet(request.POST, queryset=pending_requests)
             if formset.is_valid():
                 for form in formset:
                     if form.cleaned_data.get("approved"):

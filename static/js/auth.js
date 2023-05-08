@@ -128,10 +128,11 @@ const fnameError = document.getElementById("fname-error");
 const lname = document.getElementById("id_last_name");
 const lnameError = document.getElementById("lname-error");
 const regex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+const unameregex = /[!@#$%^&*()_+\=\[\]{};':"\\|,.<>\/?]/;
 const regex1 = /[0-9]/;
 
 uname.addEventListener("input", () => {
-  if (regex.test(uname.value)) {
+  if (unameregex.test(uname.value)) {
     unameError.style.display = "block";
   } else {
     unameError.style.display = "none";
