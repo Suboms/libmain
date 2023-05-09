@@ -49,10 +49,6 @@ INSTALLED_APPS = [
     "books",
     "rest_framework",
     "django_extensions",
-    "crispy_forms",
-    "bootstrap5",
-    "bootstrap4",
-    "django_select2",
 ]
 
 MIDDLEWARE = [
