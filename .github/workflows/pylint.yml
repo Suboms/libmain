@@ -13,3 +13,4 @@ jobs:
           pip install -r requirements.txt
       - run: |
           shopt -s globstar && pylint --load-plugins pylint_django --django-settings-module=libmain.settings **/*.py
+        shell: bash
