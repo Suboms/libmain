@@ -34,14 +34,36 @@ Install the required packages:
 pip install -r requirements.txt
 ```
 
+Set up your PostgresSQL database (follow the instructions appropriate for your platform as detailed in the official [PostgresSQL documentation](https://www.postgresql.org/docs/).
+
+Update the DATABASES setting in settings.py to point to your PostgresSQL database:
+
+```
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'your-database-name',
+        'USER': 'your-database-user',
+        'PASSWORD': 'your-database-password',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+```
+
 Run migrations:
 
 ```
 python manage.py migrate
 ```
+
 #### Usage
+
 Start the development server:
 
 ```
 python manage.py runserver
 ```
+
+> **N.B:** This project uses PostgresSQL as its database software. Before running migrations, it's essential to set up the database properly. Please ensure that you have followed the appropriate installation instructions for PostgresSQL on your machine. You can find detailed guidance on setting up PostgresSQL for your particular platform by visiting the official [documentation website](https://www.postgresql.org/docs/). If however you have a different database software you want to use you can always change the _**DATABASES**_ configuration in settings.py.database 
+database 
